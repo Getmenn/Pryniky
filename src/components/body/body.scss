@@ -1,4 +1,10 @@
 .body{
-    height: 837px;;
+    min-height: 837px;
     background: #ebecfa;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px;
+    padding-top: 30px;
+    
 }

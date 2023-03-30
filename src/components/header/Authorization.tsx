@@ -11,10 +11,11 @@ const Authorization: React.FC<IAuthorization> = ({setLoginVisable}) => {
 
   const [login, setLogin] = useState<string>('');
   const [password, setPassword] = useState<string>('');
-  const [error, setError] = useState<boolean>(true);
-
+  const [error, setError] = useState<boolean>(false);
 
   const handleAuthorization = async () => {
+    console.log(login, password);
+    
     const response = await prynikyApi.getToken(login, password);
     if (!response.data) {
       setError(true);

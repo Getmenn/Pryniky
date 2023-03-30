@@ -1,0 +1,22 @@
+.container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    height: 100%;
+    margin-bottom: 50px;
+    margin-top: 15px;
+    
+    img{
+        width: 90px;
+        animation: rot infinite 1.1s ease-in-out;
+    }
+}
+  
+  @keyframes rot {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
