@@ -1,0 +1,14 @@
+{
+  "files": {
+    "main.css": "/Pryniky/static/css/main.1b2a905f.css",
+    "main.js": "/Pryniky/static/js/main.286dd23d.js",
+    "static/media/circle.svg": "/Pryniky/static/media/circle.bd311343f962e15ae6b0ca54ed6d9de0.svg",
+    "index.html": "/Pryniky/index.html",
+    "main.1b2a905f.css.map": "/Pryniky/static/css/main.1b2a905f.css.map",
+    "main.286dd23d.js.map": "/Pryniky/static/js/main.286dd23d.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.1b2a905f.css",
+    "static/js/main.286dd23d.js"
+  ]
+}
