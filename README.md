@@ -27,7 +27,7 @@ download/send progress indicators (progress bars, spinners) of data
 
 ## Login details 💾
 
-username: username
+username: username<br />
 password: password
 
 ## Site
