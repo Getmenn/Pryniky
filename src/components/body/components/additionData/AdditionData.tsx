@@ -1,13 +1,10 @@
 import { useState } from 'react';
-import './additionData.scss'
+import './additionData.scss';
 import { prynikyApi } from '../../../../api/prynikyApi';
 import { Button, TextField } from '@mui/material';
+import { IAdditionData } from '../../../../types/dats';
 
-interface IAdditionData{
-    setVisableAddition: (visableAddition: boolean) => void;
-}
-
-const AdditionData: React.FC<IAdditionData> = ({setVisableAddition}) => {
+const AdditionData: React.FC<IAdditionData> = ({setVisableAddition}) => { //форма добавления элементов
 
     const [documentStatus, setDocumentStatus] = useState<string>('');
     const [employeeNumber, setEmployeeNumber] = useState<string>('');
@@ -36,7 +33,7 @@ const AdditionData: React.FC<IAdditionData> = ({setVisableAddition}) => {
 
     return (
         <>
-            <form className="additionData" onSubmit={handleAddRow}>
+            <form className="additionData" onSubmit={handleAddRow}> 
                 <h1>Добавление новой записи</h1>
                 
                 <TextField

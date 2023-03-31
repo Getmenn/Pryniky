@@ -14,7 +14,6 @@ const Authorization: React.FC<IAuthorization> = ({setLoginVisable}) => {
   const [error, setError] = useState<boolean>(false);
 
   const handleAuthorization = async () => {
-    console.log(login, password);
     
     const response = await prynikyApi.getToken(login, password);
     if (!response.data) {
@@ -28,10 +27,6 @@ const Authorization: React.FC<IAuthorization> = ({setLoginVisable}) => {
     if (error) {
       setError(false)
     }
-  }
-
-  const handlePasswordChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setPassword(event.target.value);
   }
       
   return (
@@ -50,7 +45,7 @@ const Authorization: React.FC<IAuthorization> = ({setLoginVisable}) => {
           variant="filled"
           type="password"
           value={password}
-          onChange={handlePasswordChange}
+          onChange={(e) => setPassword(e.target.value)}
           error={error}
         />
         <Button variant="contained" onClick={handleAuthorization}>Вход</Button>

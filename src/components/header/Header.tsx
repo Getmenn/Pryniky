@@ -1,12 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import './header.scss'
 import { Authorization } from './Authorization';
 import { Button } from '@mui/material';
-
-interface IHeader{
-  setLoginVisable:(loginVisable: boolean) => void;
-  loginVisable: boolean
-}
+import { IHeader } from '../../types/dats';
 
 const Header: React.FC<IHeader> = ({setLoginVisable, loginVisable}) => {
 

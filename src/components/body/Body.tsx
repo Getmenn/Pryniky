@@ -1,40 +1,47 @@
-import { useEffect, useState } from 'react'
-import { prynikyApi } from '../../api/prynikyApi'
-import { ITableData } from '../../types/dats'
-import { Table } from './components/table/Table'
+import { useEffect, useState } from 'react';
+import { prynikyApi } from '../../api/prynikyApi';
+import { IBody } from '../../types/dats';
+import { Table } from './components/table/Table';
+import { useDispatch } from 'react-redux';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
-import './body.scss'
-import { Preloader } from '../preloader/Preloader'
-import { AdditionData } from './components/additionData/AdditionData'
-
-interface IBody{
-    loginVisable: boolean;
-}
+import './body.scss';
+import { Preloader } from '../preloader/Preloader';
+import { AdditionData } from './components/additionData/AdditionData';
+import { useTypedSelector } from '../../hooks/useTypeSelector';
+import { cleanData, setData } from '../../redux/mainReducer';
 
 const Body: React.FC<IBody> = ({loginVisable}) => {
 
-    const [data, setData] = useState<ITableData[] | null>(null)
+    const { data } = useTypedSelector(state => state.main)
     const [visableAddition, setVisableAddition] = useState<boolean>(false)
     const [loaderStatus, setLoaderStatus] = useState<boolean>(false)
+    const dispatch = useDispatch();
 
-    useEffect(() => {
-        if (localStorage.getItem('token') && !loginVisable && !data) {
-            getData()
-        }
+    const getData = async () => { //получение данных с сервера и сохранение их в сторедж
+        setLoaderStatus(true)
+        const response = await prynikyApi.getData();   
+        dispatch(setData(response.data))  
+        setLoaderStatus(false)
+    }
 
-        if (loginVisable) {
-            setData(null)
-        }
-    }, [loginVisable])
-
-    useEffect(() => {
-        if (!visableAddition) {
+    useEffect(() => { //обновить date после добавление элемента
+        if (!visableAddition && data.length) {
             getData()
         }
     }, [visableAddition])
 
+    useEffect(() => { //добавление date после авторизации
+        if (localStorage.getItem('token') && !loginVisable && !data.length) {
+            getData()
+        }
+
+        if (loginVisable) {
+            dispatch(cleanData()) 
+        } 
+    }, [loginVisable, data.length])
+
     useEffect(() => { //установка статуса прелоадера
-        if (!loginVisable && !data) {
+        if (!loginVisable && !data.length) {
             setLoaderStatus(true)
         }
         else {
@@ -42,31 +49,16 @@ const Body: React.FC<IBody> = ({loginVisable}) => {
         }
     },[loginVisable, data])
 
-    const getData = async () => {
-        setLoaderStatus(true)
-        setData(null)
-        const response = await prynikyApi.getData();   
-        setData(response.data)  
-        setLoaderStatus(false)
-    }
-
-    const handleAddRow = async() => {
-        setVisableAddition(true) 
-    }
-
-    
-    
-
     return (
         <div className="body">
             {loaderStatus ? <Preloader /> : null}
-            {data ? <Table data={data} />: null}
-            {data ?
+            {data.length ? <Table data={data} />: null}
+            {data.length ?
                 <AddCircleIcon
                     fontSize='large'
                     color='info'
                     sx={{ marginTop: '20px', cursor: 'pointer' }}
-                    onClick={handleAddRow}
+                    onClick={() => setVisableAddition(true)}
                 />
                 : null
             }
